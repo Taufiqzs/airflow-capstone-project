@@ -1,0 +1,12 @@
+[Unit]
+Description=Synchronize approved CP3 DAGs from Google Cloud Storage
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+User=cp3airflow
+Group=cp3airflow
+EnvironmentFile=/etc/cp3-airflow/dag-sync.env
+ExecStart=/opt/cp3-airflow/scripts/sync_dags_from_gcs.sh
+

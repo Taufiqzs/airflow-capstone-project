@@ -1,0 +1,12 @@
+[Unit]
+Description=Synchronize approved CP3 DAGs every minute
+
+[Timer]
+OnBootSec=30s
+OnUnitActiveSec=60s
+RandomizedDelaySec=10s
+Persistent=true
+
+[Install]
+WantedBy=timers.target
+

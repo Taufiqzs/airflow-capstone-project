@@ -1,0 +1,41 @@
+# Environment dan secret
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*service-account*.json
+*credentials*.json
+
+# Airflow runtime
+logs/**
+!logs/.gitkeep
+config/airflow.cfg
+config/simple_auth_manager_passwords.json.generated
+airflow.db
+airflow-webserver.pid
+standalone_admin_password.txt
+
+# dbt runtime
+target/
+dbt_packages/
+dbt_internal_packages/
+logs/dbt.log
+.user.yml
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+
+# IDE dan OS
+.DS_Store
+.idea/
+.vscode/
+
+# Temporary files
+*.tmp
+*.swp
+*.bak

@@ -1,0 +1,45 @@
+name: Deploy approved CP3 DAGs
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "dags/submissions/**"
+      - "scripts/validate_dags.py"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write
+
+concurrency:
+  group: cp3-dag-deployment
+  cancel-in-progress: false
+
+jobs:
+  validate-and-upload:
+    runs-on: ubuntu-latest
+    environment: cp3-production
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Validate DAG files
+        run: python3 scripts/validate_dags.py dags/submissions
+
+      - id: auth
+        name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v3
+        with:
+          workload_identity_provider: ${{ vars.GCP_WORKLOAD_IDENTITY_PROVIDER }}
+          service_account: ${{ vars.GCP_DEPLOY_SERVICE_ACCOUNT }}
+
+      - name: Set up Google Cloud CLI
+        uses: google-github-actions/setup-gcloud@v3
+
+      - name: Upload approved DAGs
+        run: >-
+          gcloud storage rsync dags/submissions
+          gs://${{ vars.CP3_DAG_BUCKET }}/submissions
+          --recursive
+          --delete-unmatched-destination-objects
+

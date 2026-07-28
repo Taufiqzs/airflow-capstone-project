@@ -1,0 +1,3 @@
+# Keep additions small: this VM is intended only to orchestrate cloud jobs.
+# Pin project-specific packages before rebuilding the image.
+apache-airflow-providers-google==22.2.2

@@ -37,6 +37,7 @@ Dokumen ini mencatat keputusan dan langkah yang dilakukan saat menyusun project.
 - GitHub-hosted Actions memvalidasi dan mengunggah DAG ke GCS.
 - VM menyinkronkan GCS setiap menit melalui systemd timer.
 - Sinkronisasi memakai staging directory; file baru dipublikasikan hanya jika validasi lolos.
+- Staging ditempatkan di luar folder `dags/` agar Airflow tidak memindai salinan sementara atau memproses DAG yang sama dua kali.
 
 ## 6. Menambahkan operasi VM
 

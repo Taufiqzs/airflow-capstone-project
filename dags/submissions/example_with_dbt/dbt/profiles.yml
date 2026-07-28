@@ -1,0 +1,11 @@
+cp3_example_with_dbt:
+  target: prod
+  outputs:
+    prod:
+      type: bigquery
+      method: oauth
+      project: "{{ env_var('DBT_PROJECT_ID') }}"
+      dataset: "{{ env_var('DBT_DATASET') }}"
+      location: "{{ env_var('DBT_LOCATION') }}"
+      threads: 2
+      timeout_seconds: 300

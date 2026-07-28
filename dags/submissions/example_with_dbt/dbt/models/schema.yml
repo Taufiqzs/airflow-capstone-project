@@ -1,0 +1,29 @@
+version: 2
+
+models:
+  - name: stg_trips
+    description: Contoh data trip yang sudah distandardisasi.
+    columns:
+      - name: trip_id
+        data_tests:
+          - not_null
+          - unique
+      - name: trip_date
+        data_tests:
+          - not_null
+      - name: total_amount
+        data_tests:
+          - not_null
+
+  - name: daily_trip_summary
+    description: Agregasi perjalanan harian per pickup zone.
+    columns:
+      - name: trip_date
+        data_tests:
+          - not_null
+      - name: pickup_zone_id
+        data_tests:
+          - not_null
+      - name: trip_count
+        data_tests:
+          - not_null

@@ -21,7 +21,7 @@ jobs:
     runs-on: ubuntu-latest
     environment: cp3-production
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: Validate DAG files
         run: python3 scripts/validate_dags.py dags/submissions
@@ -42,4 +42,3 @@ jobs:
           gs://${{ vars.CP3_DAG_BUCKET }}/submissions
           --recursive
           --delete-unmatched-destination-objects
-

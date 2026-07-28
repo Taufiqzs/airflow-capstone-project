@@ -1,0 +1,12 @@
+name: cp3_example_with_dbt
+version: "1.0.0"
+config-version: 2
+
+profile: cp3_example_with_dbt
+
+model-paths: ["models"]
+clean-targets: ["target", "dbt_packages"]
+
+models:
+  cp3_example_with_dbt:
+    +materialized: table

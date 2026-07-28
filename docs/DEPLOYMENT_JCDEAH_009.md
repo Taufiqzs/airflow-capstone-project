@@ -16,6 +16,8 @@ Deployment dibuat pada 28 Juli 2026.
 | BigQuery dataset | `jcdeah-009.cp3_airflow` |
 | DAG bucket | `gs://jcdeah-009-cp3-airflow-dags` |
 | Firewall | `cp3-airflow-allow-iap-ssh` |
+| GitHub deploy service account | `cp3-github-deployer@jcdeah-009.iam.gserviceaccount.com` |
+| Workload Identity Pool | `cp3-github` / provider `github` |
 
 Service account mendapat `roles/bigquery.jobUser` dan `roles/bigquery.user` pada project, `roles/bigquery.dataEditor` pada dataset bersama `cp3_airflow`, dan `roles/storage.objectViewer` hanya pada bucket DAG. Role `bigquery.user` memungkinkan DAG membuat dataset baru. Karena seluruh DAG memakai service account yang sama, ini bukan isolasi IAM per student; gunakan konvensi `cp3_<student_id>`, review DAG, dan service account per student bila diperlukan isolasi yang kuat.
 
@@ -64,6 +66,6 @@ gcloud compute instances start cp3-airflow-b \
 
 Kapasitas Spot tidak dijamin. Setelah VM berhasil hidup, systemd otomatis menjalankan Airflow dan sinkronisasi DAG.
 
-## Belum dikonfigurasi
+## GitHub Actions
 
-Workload Identity Federation untuk GitHub belum dibuat karena repository GitHub target belum ditentukan. Bucket, VM-side sync, dan contoh workflow sudah siap; lengkapi langkah pada `GITHUB_DEPLOYMENT.md` setelah owner serta nama repository diketahui.
+Workload Identity Federation telah dibatasi pada repository `riodpp/airflow-capstone-project`. Workflow `.github/workflows/deploy-dags.yml` memvalidasi submission pada pull request dan menyinkronkan DAG ke bucket setelah perubahan masuk ke `main`.
